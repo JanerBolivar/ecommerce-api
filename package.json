@@ -1,0 +1,43 @@
+{
+  "name": "ecommerce-api",
+  "version": "1.0.0",
+  "description": "API RESTful de ecommerce como caso de estudio de buenas prácticas arquitectónicas (MVC, JWT, Redis, Sequelize).",
+  "type": "module",
+  "main": "src/server.js",
+  "scripts": {
+    "dev": "nodemon src/server.js",
+    "start": "node src/server.js",
+    "swagger": "node swagger.js",
+    "seed": "node src/seeders/seed.js"
+  },
+  "keywords": [
+    "ecommerce",
+    "api",
+    "express",
+    "sequelize",
+    "redis",
+    "jwt"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@scalar/express-api-reference": "^0.10.21",
+    "bcryptjs": "^3.0.3",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.6",
+    "dotenv": "^18.0.3",
+    "express": "^5.2.1",
+    "jsonwebtoken": "^9.0.3",
+    "morgan": "^1.12.1",
+    "pg": "^8.23.0",
+    "pg-hstore": "^2.3.4",
+    "redis": "^6.2.1",
+    "sequelize": "^6.37.8",
+    "swagger-autogen": "^2.23.7",
+    "winston": "^3.19.0",
+    "zod": "^4.6.5"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  }
+}

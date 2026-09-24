@@ -1,0 +1,16 @@
+# Dependencias y artefactos de Node
+node_modules/
+
+# Variables de entorno (nunca se versionan)
+.env
+
+# Archivos generados
+swagger.json
+
+# Sistema operativo
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*

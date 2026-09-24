@@ -1,0 +1,47 @@
+# Este archivo levanta únicamente los servicios de infraestructura:
+# PostgreSQL (base de datos relacional) y Redis (caché + Refresh Tokens).
+# La aplicación Node.js corre fuera de Docker (desarrollo local) y se conecta
+# a estos contenedores a través de los puertos expuestos en localhost.
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: ecommerce_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-ecommerce}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-ecommerce_secret}
+      POSTGRES_DB: ${POSTGRES_DB:-ecommerce_db}
+    ports:
+      # Se expone el puerto 5432 por defecto al localhost para facilitar
+      # la conexión desde la app y desde clientes GUI (pgAdmin, DBeaver).
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-ecommerce} -d ${POSTGRES_DB:-ecommerce_db}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    container_name: ecommerce_redis
+    restart: unless-stopped
+    # --appendonly persiste las claves en disco para que los Refresh Tokens
+    # no se pierdan al reiniciar el contenedor.
+    command: redis-server --appendonly yes
+    ports:
+      # Se expone el puerto 6379 por defecto al localhost.
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  postgres_data:
+  redis_data:
