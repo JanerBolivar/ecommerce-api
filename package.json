@@ -6,7 +6,7 @@
   "main": "src/server.js",
   "scripts": {
     "dev": "npm run swagger && nodemon src/server.js",
-    "start": "npm run swagger && node src/server.js",
+    "start": "node swagger.js && node src/server.js",
     "swagger": "node swagger.js",
     "seed": "node src/seeders/seed.js"
   },
